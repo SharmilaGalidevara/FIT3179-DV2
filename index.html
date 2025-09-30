@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Malaysia Protected Areas & Biodiversity</title>
+  <title>Malaysia National Parks & Biodiversity</title>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
@@ -13,19 +13,19 @@
     #vis > div { margin: 0 auto; }
     #vis .vega-embed { margin: 0 auto; }
     h1 { text-align: center; margin-top: 8px; }
-    .meta { font-size: 0.85rem; color: #444; margin-top: 8px; text-align: center; }
+    .meta { font-size: 1rem; color: #444; margin-top: 10px; text-align: center; }
     .meta-card { position: fixed; top: 12px; right: 12px; background: #ffffff; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 0.85rem; color: #333; }
     .meta-card h2 { font-size: 0.95rem; margin: 0 0 6px 0; text-align: center; }
     .meta-card .row { margin: 2px 0; }
   </style>
 </head>
 <body>
-  <h1>Malaysia Protected Areas & Biodiversity</h1>
+  <h1>Malaysia National Parks & Biodiversity</h1>
   <div id="vis"></div>
   <div class="meta">
-    Data sources: Malaysia boundary <a href="https://raw.githubusercontent.com/johan/world.geo.json/master/countries/MYS.geo.json" target="_blank" rel="noopener">GeoJSON</a> and protected areas CSV <a href="https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/malaysia_parks_week9.csv" target="_blank" rel="noopener">(Data)</a>. <br>
-    Map idiom: proportional symbol map. Circle <strong>size</strong> and <strong>color</strong> both encode protected area size (km²). <br>
-    Tooltips: species count and species density (species/km²). <br>
+    Map shows Malaysia's national parks and biodiversity context nationwide. <br>
+    Circle size encodes protected area size in square kilometres. <br>
+    Tooltips provide park name, species count, and species density values. <br>
   </div>
 
   <div class="meta-card">
@@ -50,10 +50,10 @@
         "data": { "graticule": true },
         "mark": { "type": "geoshape", "stroke": "#bdbdbd", "strokeWidth": 0.6, "fill": null }
       },
-      // malaysia outline (previous working Malaysia-only GeoJSON)
+      // malaysia outline 
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/MYS.geo.json",
+          "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/data/malaysia_geo.json",
           "format": { "type": "json" }
         },
         "mark": {
