@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Malaysia Protected Areas & Biodiversity</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 12px; }
+    #vis { max-width: 900px; margin: auto; }
+    h1 { text-align: center; margin-top: 8px; }
+    .meta { font-size: 0.85rem; color: #444; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Malaysia Protected Areas & Biodiversity</h1>
+  <div id="vis"></div>
+  <div class="meta">
+    Data source: WDPA (Malaysia) + biodiversity metric (GBIF-derived). <br>
+    Area in km²; species density = species count ÷ area. <br>
+    Projection: Mercator centered on Malaysia. <br><br>
+    <strong>FIT3179</strong><br> 
+    <strong>Homework Week 9</strong><br>
+    <strong>Name: </strong>Galidevara Sharmila<br>
+    <strong>Student ID: </strong>34327851<br>
+  </div>
+  <script>
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 900,
+    "height": 600,
+    "projection": { "type": "mercator", "center": [110, 4], "scale": 1700 },
+    "layer": [
+      // ocean background (sphere)
+      {
+        "data": { "sphere": true },
+        "mark": { "type": "geoshape", "fill": "#e6f3ff", "stroke": "#cfe8ff", "strokeWidth": 0.6 }
+      },
+      // graticule
+      {
+        "data": { "graticule": true },
+        "mark": { "type": "geoshape", "stroke": "#bdbdbd", "strokeWidth": 0.6, "fill": null }
+      },
+      // malaysia outline (previous working Malaysia-only GeoJSON)
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/johan/world.geo.json/master/countries/MYS.geo.json",
+          "format": { "type": "json" }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#ffffff",
+          "stroke": "#000000",
+          "strokeWidth": 1.8,
+          "strokeOpacity": 1
+        }
+      },
+      // national parks as proportional circles
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/malaysia_parks_week9.csv",
+          "format": { "type": "csv" }
+        },
+        "transform": [
+          { "calculate": "datum.Area_k2", "as": "Area_k2_color" }
+        ],
+        "mark": { "type": "circle", "opacity": 0.8, "stroke": "#2f4f2f", "strokeWidth": 1 },
+        "encoding": {
+          "longitude": { "field": "Centroid_Lon", "type": "quantitative" },
+          "latitude":  { "field": "Centroid_Lat", "type": "quantitative" },
+          "size": {
+            "field": "Area_k2",
+            "type": "quantitative",
+            "scale": { "range": [40, 1600] },
+            "legend": { "title": "Area (km²) – size", "orient": "right" }
+          },
+          "color": {
+            "field": "Area_k2_color",
+            "type": "quantitative",
+            "scale": { "scheme": "greens", "reverse": false },
+            "legend": { "title": "Area (km²) – color", "orient": "right", "gradientLength": 160 }
+          },
+          "tooltip": [
+            { "field": "Park_Name", "type": "nominal", "title": "Protected Area" },
+            { "field": "State", "type": "nominal", "title": "State(s)" },
+            { "field": "Area_k2", "type": "quantitative", "title": "Area (km²)" },
+            { "field": "Species_Count", "type": "quantitative", "title": "Species count" },
+            { "field": "Species_Density", "type": "quantitative", "title": "Species/km²" }
+          ]
+        }
+      }
+    ]
+  };
+
+  vegaEmbed('#vis', spec, { actions: false }).then(() => {}).catch(console.error);
+  </script>
+</body>
+</html>
