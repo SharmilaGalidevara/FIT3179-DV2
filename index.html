@@ -8,29 +8,37 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
   <style>
     body { font-family: Arial, sans-serif; margin: 12px; }
-    #vis { max-width: 900px; margin: auto; }
+    /* Center the embedded chart */
+    #vis { width: 100%; display: flex; justify-content: center; }
+    #vis > div { margin: 0 auto; }
+    #vis .vega-embed { margin: 0 auto; }
     h1 { text-align: center; margin-top: 8px; }
-    .meta { font-size: 0.85rem; color: #444; margin-top: 8px; }
+    .meta { font-size: 0.85rem; color: #444; margin-top: 8px; text-align: center; }
+    .meta-card { position: fixed; top: 12px; right: 12px; background: #ffffff; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 0.85rem; color: #333; }
+    .meta-card h2 { font-size: 0.95rem; margin: 0 0 6px 0; text-align: center; }
+    .meta-card .row { margin: 2px 0; }
   </style>
 </head>
 <body>
   <h1>Malaysia Protected Areas & Biodiversity</h1>
   <div id="vis"></div>
   <div class="meta">
-    Data source: WDPA (Malaysia) + biodiversity metric (GBIF-derived). <br>
-    Area in km²; species density = species count ÷ area. <br>
-    Projection: Mercator centered on Malaysia. <br><br>
-    <strong>FIT3179</strong><br> 
-    <strong>Homework Week 9</strong><br>
-    <strong>Name: </strong>Galidevara Sharmila<br>
-    <strong>Student ID: </strong>34327851<br>
+    Data sources: Malaysia boundary <a href="https://raw.githubusercontent.com/johan/world.geo.json/master/countries/MYS.geo.json" target="_blank" rel="noopener">GeoJSON</a> and protected areas CSV <a href="https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/malaysia_parks_week9.csv" target="_blank" rel="noopener">(Data)</a>. <br>
+    Map idiom: proportional symbol map. Circle <strong>size</strong> and <strong>color</strong> both encode protected area size (km²). <br>
+    Tooltips: species count and species density (species/km²). <br>
+  </div>
+
+  <div class="meta-card">
+    <h2>FIT3179 - Week 9</h2>
+    <div class="row"><strong>Name:</strong> Galidevara Sharmila</div>
+    <div class="row"><strong>Student ID:</strong> 34327851</div>
   </div>
   <script>
   const spec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 900,
     "height": 600,
-    "projection": { "type": "mercator", "center": [110, 4], "scale": 1700 },
+    "projection": { "type": "mercator", "center": [109, 4], "scale": 2200 },
     "layer": [
       // ocean background (sphere)
       {
@@ -73,20 +81,20 @@
             "field": "Area_k2",
             "type": "quantitative",
             "scale": { "range": [40, 1600] },
-            "legend": { "title": "Area (km²) – size", "orient": "right" }
+            "legend": { "title": "Area (km²) – size", "orient": "right", "format": ",d" }
           },
           "color": {
             "field": "Area_k2_color",
             "type": "quantitative",
             "scale": { "scheme": "greens", "reverse": false },
-            "legend": { "title": "Area (km²) – color", "orient": "right", "gradientLength": 160 }
+            "legend": { "title": "Area (km²) – color", "orient": "right", "gradientLength": 160, "format": ",d" }
           },
           "tooltip": [
             { "field": "Park_Name", "type": "nominal", "title": "Protected Area" },
             { "field": "State", "type": "nominal", "title": "State(s)" },
-            { "field": "Area_k2", "type": "quantitative", "title": "Area (km²)" },
-            { "field": "Species_Count", "type": "quantitative", "title": "Species count" },
-            { "field": "Species_Density", "type": "quantitative", "title": "Species/km²" }
+            { "field": "Area_k2", "type": "quantitative", "title": "Area (km²)", "format": ",d" },
+            { "field": "Species_Count", "type": "quantitative", "title": "Species count", "format": ",d" },
+            { "field": "Species_Density", "type": "quantitative", "title": "Species/km²", "format": ".2f" }
           ]
         }
       }
