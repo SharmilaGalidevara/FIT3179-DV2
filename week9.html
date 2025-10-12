@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Malaysia National Parks & Biodiversity</title>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 12px; }
+    /* Center the embedded chart */
+    #vis { width: 100%; display: flex; justify-content: center; }
+    #vis > div { margin: 0 auto; }
+    #vis .vega-embed { margin: 0 auto; }
+    h1 { text-align: center; margin-top: 8px; }
+    .meta { font-size: 1rem; color: #444; margin-top: 10px; text-align: center; }
+    .meta-card { position: fixed; top: 12px; right: 12px; background: #ffffff; border: 1px solid #ddd; border-radius: 6px; padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 0.85rem; color: #333; }
+    .meta-card h2 { font-size: 0.95rem; margin: 0 0 6px 0; text-align: center; }
+    .meta-card .row { margin: 2px 0; }
+  </style>
+</head>
+<body>
+  <h1>Malaysia National Parks & Biodiversity</h1>
+  <div id="vis"></div>
+  <div class="meta">
+    Map shows Malaysia's national parks and biodiversity context nationwide. <br>
+    Circle size encodes protected area size in square kilometres. <br>
+    Tooltips provide park name, species count, and species density values. <br>
+  </div>
+
+  <div class="meta-card">
+    <h2>FIT3179 - Week 9</h2>
+    <div class="row"><strong>Name:</strong> Galidevara Sharmila</div>
+    <div class="row"><strong>Student ID:</strong> 34327851</div>
+  </div>
+  <script>
+  const spec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 900,
+    "height": 600,
+    "projection": { "type": "mercator", "center": [109, 4], "scale": 2200 },
+    "layer": [
+      // ocean background (sphere)
+      {
+        "data": { "sphere": true },
+        "mark": { "type": "geoshape", "fill": "#e6f3ff", "stroke": "#cfe8ff", "strokeWidth": 0.6 }
+      },
+      // graticule
+      {
+        "data": { "graticule": true },
+        "mark": { "type": "geoshape", "stroke": "#bdbdbd", "strokeWidth": 0.6, "fill": null }
+      },
+      // malaysia outline 
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/data/malaysia_geo.json",
+          "format": { "type": "json" }
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "#ffffff",
+          "stroke": "#000000",
+          "strokeWidth": 1.8,
+          "strokeOpacity": 1
+        }
+      },
+      // national parks as proportional circles
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/malaysia_parks_week9.csv",
+          "format": { "type": "csv" }
+        },
+        "transform": [
+          { "calculate": "datum.Area_k2", "as": "Area_k2_color" }
+        ],
+        "mark": { "type": "circle", "opacity": 0.8, "stroke": "#2f4f2f", "strokeWidth": 1 },
+        "encoding": {
+          "longitude": { "field": "Centroid_Lon", "type": "quantitative" },
+          "latitude":  { "field": "Centroid_Lat", "type": "quantitative" },
+          "size": {
+            "field": "Area_k2",
+            "type": "quantitative",
+            "scale": { "range": [40, 1600] },
+            "legend": { "title": "Area (km²) – size", "orient": "right", "format": ",d" }
+          },
+          "color": {
+            "field": "Area_k2_color",
+            "type": "quantitative",
+            "scale": { "scheme": "greens", "reverse": false },
+            "legend": { "title": "Area (km²) – color", "orient": "right", "gradientLength": 160, "format": ",d" }
+          },
+          "tooltip": [
+            { "field": "Park_Name", "type": "nominal", "title": "Protected Area" },
+            { "field": "State", "type": "nominal", "title": "State(s)" },
+            { "field": "Area_k2", "type": "quantitative", "title": "Area (km²)", "format": ",d" },
+            { "field": "Species_Count", "type": "quantitative", "title": "Species count", "format": ",d" },
+            { "field": "Species_Density", "type": "quantitative", "title": "Species/km²", "format": ".2f" }
+          ]
+        }
+      }
+    ]
+  };
+
+  vegaEmbed('#vis', spec, { actions: false }).then(() => {}).catch(console.error);
+  </script>
+</body>
+</html>
