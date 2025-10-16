@@ -9,7 +9,7 @@
   <style>
     body { 
       font-family: Arial, sans-serif; 
-      margin: 12px;
+      /* margin: 12px; */ /* Removed to allow full width for continuous page */
       max-width: 1200px;
       margin: 0 auto;
       padding: 20px;
@@ -18,10 +18,11 @@
     }
     .viz-container {
       margin-bottom: 40px;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      padding: 20px;
+      margin-top: 40px; /* Added top margin for spacing */
+      /* background: #fff; */ /* Removed for continuous page */
+      /* border-radius: 8px; */ /* Removed for continuous page */
+      /* box-shadow: 0 2px 12px rgba(0,0,0,0.1); */ /* Removed for continuous page */
+      /* padding: 20px; */ /* Removed for continuous page */
     }
     h1 { 
       font-family: Georgia, 'Times New Roman', Times, serif;
@@ -45,43 +46,35 @@
     h2 {
       margin-top: 30px;
       margin-bottom: 20px;
-      font-size: 1.5em;
+      font-size: 1.2em; /* Smaller font size */
       color: #34495e;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #ecf0f1;
+      text-align: left; /* Left align headings */
+      padding-bottom: 0px; /* Remove padding */
+      border-bottom: none; /* Remove border */
     }
-    .meta {
+    .meta-footer { /* Renamed from .meta-card to .meta-footer */
       font-size: 0.95rem;
       color: #555;
-      margin: 10px 0 20px;
+      margin: 40px auto 20px auto; /* Centered and added top margin */
       text-align: center;
       line-height: 1.5;
+      max-width: 800px; /* Constrain width for readability */
+      padding-top: 20px;
+      border-top: 1px solid #eee; /* Separator line */
+      text-align: left; /* Align text to the left */
     }
-    .meta-card {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      background: #ffffff;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 12px 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      font-size: 0.9rem;
-      color: #333;
-      z-index: 1000;
-    }
-    .meta-card h2 {
+    .meta-footer h2 { /* Targeting h2 within the new footer class */
       font-size: 1.1rem;
       margin: 0 0 8px 0;
       text-align: center;
       padding: 0;
       border: none;
     }
-    .meta-card .row {
+    .meta-footer .row { /* Targeting rows within the new footer class */
       margin: 4px 0;
       line-height: 1.4;
     }
-    .meta-card strong {
+    .meta-footer strong { /* Targeting strong within the new footer class */
       color: #2c3e50;
     }
     .description {
@@ -116,33 +109,126 @@
       border: 1px solid #ddd;
       background-color: white;
     }
+    .plot-and-dropdown-container {
+      display: flex;
+      flex-direction: column;
+      align-items: right; /* Center align the plot and dropdown */
+      gap: 15px; /* Space between plot and dropdown */
+      /* flex: 2; */ /* Removed to use explicit width */
+      width: 100%; /* Take full width of its parent (65%) */
+    }
+    .two-column-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px; /* Space between columns */
+    }
+    .two-column-layout > div {
+      /* flex: 2; */ /* Removed to use explicit width */
+      width: 65%; /* Allocate 65% for visualization */
+    }
+    .two-column-layout .description {
+      /* flex: 1; */ /* Removed to use explicit width */
+      width: 30%; /* Allocate 30% for description */
+      margin-top: 0; 
+    }
+    .two-column-layout-reverse {
+      display: flex;
+      flex-direction: row-reverse; 
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+    .two-column-layout-reverse > div {
+      /* flex: 2; */ /* Removed to use explicit width */
+      width: 65%; /* Allocate 65% for visualization */
+    }
+    .two-column-layout-reverse .description {
+      /* flex: 1; */ /* Removed to use explicit width */
+      width: 30%; /* Allocate 30% for description */
+      margin-top: 0;
+    }
   </style>
 </head>
 <body>
-  <h1>Malaysia's Protected Areas & Economic Indicators</h1>
+  <h1>Malaysia's National Parks and Biodiversity</h1>
+
+  <div class="viz-container">
+    <h2>Malaysia Protected Areas</h2>
+    <div class="two-column-layout">
+      <div class="description">
+        <p>Map shows Malaysia's protected areas by state.</p>
+        <p>Circle size encodes protected area size in square kilometers. Hover over circles to see details of the species and count.</p>
+      </div>
+      <div id="map"></div>
+    </div>
+  </div>
 
   <div class="viz-container">
     <h2>State-level Economic Indicators</h2>
-    <div class="description">
-      <p>This bubble plot shows the relationship between median income and GDP across Malaysian states, with bubble size representing population.</p>
-      <p>Use the dropdown to filter by year. Hover over bubbles to see detailed information about each state.</p>
+    <div class="two-column-layout-reverse">
+      <div class="description">
+        <p>This bubble plot shows the relationship between median income and GDP across Malaysian states, with bubble size representing population.</p>
+        <p>Use the dropdown to filter by year. Hover over bubbles to see detailed information about each state.</p>
+      </div>
+      <div class="plot-and-dropdown-container">
+        <div id="bubble-plot"></div>
+        <div class="vega-bind" id="year-selection"></div>
+      </div>
     </div>
-    <div id="bubble-plot"></div>
   </div>
 
   <div class="viz-container">
-    <h2>Malaysia National Parks & Biodiversity</h2>
-    <div class="description">
-      <p>Map shows Malaysia's national parks and biodiversity context nationwide.</p>
-      <p>Circle size encodes protected area size in square kilometers. Hover over circles to see park details.</p>
+    <h2>PRIMARY FOREST LOSS IN MALAYSIA</h2>
+    <div class="two-column-layout">
+      <div class="description">
+        <p>Between 2002 and 2024, Malaysia experienced a loss of 2.99 Mha of humid primary forest, contributing to 33% of its total tree cover loss for that period. Overall, the humid primary forest area in Malaysia saw a 19% reduction.</p>
+        <p>This visualization presents the annual tree cover loss within the 2001 primary forest extent (represented by green bars) and tracks the remaining percentage of that 2001 forest area (shown by the dotted line).</p>
+        <p>Note: Data collection methods evolved after 2015; exercise caution when comparing data from before and after this year.</p>
+      </div>
+      <div id="primary-forest-loss"></div>
     </div>
-    <div id="map"></div>
   </div>
 
-  <div class="meta-card">
-    <h2>FIT3179 - Week 10</h2>
-    <div class="row"><strong>Name:</strong> Sharmila Galidevara</div>
-    <div class="row"><strong>Student ID:</strong> 34327851</div>
+  <div class="viz-container">
+    <h2>TREE COVER LOSS IN MALAYSIA</h2>
+    <div class="two-column-layout-reverse">
+    <div class="description">
+        <p>Malaysia's total tree cover loss from 2001 to 2024 amounted to 9.51 Mha, equating to 32% of its 2000 tree cover extent and releasing 5.51 Gt of CO₂e emissions. This calculation does not incorporate any tree cover gains during the specified period.</p>
+        <p>The chart illustrates the yearly tree cover reduction in Malaysia, measured in hectares. Analyzing these trends offers insights into the prevailing deforestation patterns and their environmental repercussions.</p>
+      </div>
+      <div id="tree-cover-loss"></div>
+    </div>
+  </div>
+
+  <div class="viz-container">
+    <h2>TREE COVER LOSS BY DOMINANT DRIVER IN MALAYSIA</h2>
+    <div class="two-column-layout">
+      <div class="description">
+        <p>From 2001 to 2024, 77% of Malaysia's tree cover loss occurred in regions primarily impacted by deforestation. This donut chart visually breaks down the main causes, distinguishing between dominant drivers of deforestation and temporary disturbances.</p>
+      </div>
+      <div id="dominant-driver-tree-loss"></div>
+    </div>
+  </div>
+
+  <div class="viz-container">
+    <h2>FOREST LOSS BY STATE (2020-2024)</h2>
+    <div class="two-column-layout">
+      <div class="description">
+        <p>This bar chart shows the forest loss in hectares by state from 2020 to 2024. The data reveals significant variations in forest loss across different states in Malaysia.</p>
+      </div>
+      <div id="forest-loss-by-state"></div>
+    </div>
+  </div>
+
+  <div class="viz-container">
+    <h2>FOREST LOSS BY YEAR (2010-2024)</h2>
+    <div class="two-column-layout-reverse">
+      <div class="description">
+        <p>This bar chart displays the annual forest loss in Malaysia from 2010 to 2024. The trend shows fluctuations in forest loss over the years, with some years experiencing higher rates of deforestation than others.</p>
+      </div>
+      <div id="forest-loss-by-year"></div>
+    </div>
   </div>
 
   <script>
@@ -365,9 +451,9 @@
             "field": "Area_k2",
             "type": "quantitative",
             "scale": { "range": [40, 1600] },
-            "legend": { 
-              "title": "Area (km²)", 
-              "orient": "right", 
+            "legend": {
+              "title": "Area (km²)",
+              "orient": "right",
               "format": ",d",
               "titleFontSize": 12,
               "labelFontSize": 11
@@ -377,14 +463,14 @@
             "field": "Area_k2_color",
             "type": "quantitative",
             "title": "Area (km²)",
-            "scale": { 
-              "scheme": "greens", 
-              "reverse": false 
+            "scale": {
+              "scheme": "greens",
+              "reverse": false
             },
-            "legend": { 
-              "title": "Area (km²)", 
-              "orient": "right", 
-              "gradientLength": 160, 
+            "legend": {
+              "title": "Area (km²)",
+              "orient": "right",
+              "gradientLength": 160,
               "format": ",d",
               "titleFontSize": 12,
               "labelFontSize": 11
@@ -406,14 +492,393 @@
     }
   };
 
-  // Embed the visualizations
-  vegaEmbed('#bubble-plot', bubbleSpec, {actions: false})
-    .then(result => console.log('Bubble plot loaded'))
-    .catch(console.error);
+  // New Primary Forest Loss Specification (Re-implemented from scratch)
+  const primaryForestLossSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Primary Forest Loss in Malaysia (2002-2024)",
+    "width": 700,
+    "height": 400,
+        "data": {
+      "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/country_treecover_loss.csv",
+      "format": {"type": "csv", "parse": {
+        "threshold": "number", 
+        "extent_2000_ha": "number",
+        "tc_loss_ha_2001": "number", "tc_loss_ha_2002": "number", "tc_loss_ha_2003": "number",
+        "tc_loss_ha_2004": "number", "tc_loss_ha_2005": "number", "tc_loss_ha_2006": "number",
+        "tc_loss_ha_2007": "number", "tc_loss_ha_2008": "number", "tc_loss_ha_2009": "number",
+        "tc_loss_ha_2010": "number", "tc_loss_ha_2011": "number", "tc_loss_ha_2012": "number",
+        "tc_loss_ha_2013": "number", "tc_loss_ha_2014": "number", "tc_loss_ha_2015": "number",
+        "tc_loss_ha_2016": "number", "tc_loss_ha_2017": "number", "tc_loss_ha_2018": "number",
+        "tc_loss_ha_2019": "number", "tc_loss_ha_2020": "number", "tc_loss_ha_2021": "number",
+        "tc_loss_ha_2022": "number", "tc_loss_ha_2023": "number", "tc_loss_ha_2024": "number"
+      }}
+    },
+    "transform": [
+      {"filter": "datum.country == 'Malaysia' && datum.threshold == 30"},
+      {"filter": "!isNaN(datum.extent_2000_ha)"}, // Added safeguard for extent_2000_ha
+      {
+        "fold": [
+          "tc_loss_ha_2001", "tc_loss_ha_2002", "tc_loss_ha_2003", "tc_loss_ha_2004", "tc_loss_ha_2005",
+          "tc_loss_ha_2006", "tc_loss_ha_2007", "tc_loss_ha_2008", "tc_loss_ha_2009", "tc_loss_ha_2010",
+          "tc_loss_ha_2011", "tc_loss_ha_2012", "tc_loss_ha_2013", "tc_loss_ha_2014", "tc_loss_ha_2015",
+          "tc_loss_ha_2016", "tc_loss_ha_2017", "tc_loss_ha_2018", "tc_loss_ha_2019", "tc_loss_ha_2020",
+          "tc_loss_ha_2021", "tc_loss_ha_2022", "tc_loss_ha_2023", "tc_loss_ha_2024"
+        ],
+        "as": ["ColumnHeader", "LossValueString"]
+      },
+      {"filter": "datum.LossValueString !== null"},
+      {"calculate": "datum.LossValueString", "as": "Tree_Loss_Ha"},
+      {"filter": "!isNaN(datum.Tree_Loss_Ha)"},
+      {"calculate": "parseFloat(replace(datum.ColumnHeader, /[^0-9]/g, ''))", "as": "YearNum"},
+      {"filter": "!isNaN(datum.YearNum)"},
+      {
+        "window": [{"op": "sum", "field": "Tree_Loss_Ha", "as": "cumulative_loss"}],
+        "frame": [null, 0],
+        "sort": [{"field": "YearNum"}]
+      },
+      {"calculate": "datum.extent_2000_ha - datum.cumulative_loss", "as": "remaining_area"},
+      {"calculate": "(datum.extent_2000_ha > 0 && datum.remaining_area !== null) ? (datum.remaining_area / datum.extent_2000_ha) * 100 : 0", "as": "percent_remaining"}
+    ],
+    "layer": [
+      {
+        "mark": "bar",
+        "encoding": {
+          "x": {"field": "YearNum", "type": "quantitative", "title": "Year", "axis": {"labelAngle": 0, "format": "d"}},
+          "y": {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Area of Tree Cover Loss (kha)", "axis": {"format": ",.0f", "tickCount": 5}},
+          "color": {"value": "#A5D6A7"},
+          "tooltip": [
+            {"field": "YearNum", "type": "quantitative", "title": "Year"},
+            {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Tree Loss (kha)", "format": ",.0f"}
+          ]
+        }
+      },
+      {
+        "mark": {"type": "line", "color": "#388E3C", "strokeDash": [2, 2], "point": false},
+        "encoding": {
+          "x": {"field": "YearNum", "type": "quantitative"},
+          "y": {
+            "field": "percent_remaining",
+            "type": "quantitative",
+            "title": "Percent of 2001 Primary Forest Area Remaining",
+            "axis": {"format": ".0f", "orient": "right", "tickCount": 5, "titleColor": "#388E3C"}
+          },
+          "tooltip": [
+            {"field": "YearNum", "type": "quantitative", "title": "Year"},
+            {"field": "percent_remaining", "type": "quantitative", "title": "Percent Remaining", "format": ".2f"}
+          ]
+        }
+      }
+    ],
+    "resolve": {"scale": {"y": "independent"}},
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10
+      }
+    }
+  };
 
-  vegaEmbed('#map', mapSpec, {actions: false})
-    .then(result => console.log('Map loaded'))
-    .catch(console.error);
+  // New Tree Cover Loss in Malaysia Specification (Re-implemented from scratch)
+  const treeCoverLossSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Country-level tree cover loss over time for Malaysia",
+    "width": 700,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/SharmilaGalidevara/FIT3179-DV2/main/country_treecover_loss.csv",
+      "format": {"type": "csv", "parse": {
+        "threshold": "number", 
+        "extent_2000_ha": "number",
+        "tc_loss_ha_2001": "number", "tc_loss_ha_2002": "number", "tc_loss_ha_2003": "number",
+        "tc_loss_ha_2004": "number", "tc_loss_ha_2005": "number", "tc_loss_ha_2006": "number",
+        "tc_loss_ha_2007": "number", "tc_loss_ha_2008": "number", "tc_loss_ha_2009": "number",
+        "tc_loss_ha_2010": "number", "tc_loss_ha_2011": "number", "tc_loss_ha_2012": "number",
+        "tc_loss_ha_2013": "number", "tc_loss_ha_2014": "number", "tc_loss_ha_2015": "number",
+        "tc_loss_ha_2016": "number", "tc_loss_ha_2017": "number", "tc_loss_ha_2018": "number",
+        "tc_loss_ha_2019": "number", "tc_loss_ha_2020": "number", "tc_loss_ha_2021": "number",
+        "tc_loss_ha_2022": "number", "tc_loss_ha_2023": "number", "tc_loss_ha_2024": "number"
+      }}
+    },
+    "transform": [
+      {"filter": "datum.country == 'Malaysia' && datum.threshold == 30"},
+      {
+        "fold": [
+          "tc_loss_ha_2001", "tc_loss_ha_2002", "tc_loss_ha_2003", "tc_loss_ha_2004", "tc_loss_ha_2005",
+          "tc_loss_ha_2006", "tc_loss_ha_2007", "tc_loss_ha_2008", "tc_loss_ha_2009", "tc_loss_ha_2010",
+          "tc_loss_ha_2011", "tc_loss_ha_2012", "tc_loss_ha_2013", "tc_loss_ha_2014", "tc_loss_ha_2015",
+          "tc_loss_ha_2016", "tc_loss_ha_2017", "tc_loss_ha_2018", "tc_loss_ha_2019", "tc_loss_ha_2020",
+          "tc_loss_ha_2021", "tc_loss_ha_2022", "tc_loss_ha_2023", "tc_loss_ha_2024"
+        ],
+        "as": ["ColumnHeader", "LossValueString"]
+      },
+      {"filter": "datum.LossValueString !== null"},
+      {"calculate": "datum.LossValueString", "as": "Tree_Loss_Ha"},
+      {"filter": "!isNaN(datum.Tree_Loss_Ha)"},
+      {"calculate": "parseFloat(replace(datum.ColumnHeader, /[^0-9]/g, ''))", "as": "YearNum"},
+      {"filter": "!isNaN(datum.YearNum)"}
+    ],
+    "mark": "bar",
+    "encoding": {
+      "x": {"field": "YearNum", "type": "quantitative", "title": "Year", "axis": {"labelAngle": 0, "format": "d"}},
+      "y": {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Area of Tree Cover Loss (kha)", "axis": {"format": ",.0f", "tickCount": 5}},
+      "color": {"value": "#EC407A"},
+      "tooltip": [
+        {"field": "YearNum", "type": "quantitative", "title": "Year"},
+        {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Tree Loss (kha)", "format": ",.0f"}
+      ]
+    },
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal",
+        "titlePadding": 10
+      }
+    }
+  };
+
+  // New Dominant Driver Tree Loss Specification (Placeholder for now)
+  const dominantDriverTreeLossSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Tree Cover Loss by Dominant Driver in Malaysia",
+    "width": 500,
+    "height": 400,
+    "data": {
+      "values": [
+        {"driver": "Hard commodities", "loss_kha": 170},
+        {"driver": "Permanent agriculture", "loss_kha": 7040}, // 7.04 Mha = 7040 kha
+        {"driver": "Settlements & infrastructure", "loss_kha": 158},
+        {"driver": "Logging", "loss_kha": 1860}, // 1.86 Mha = 1860 kha
+        {"driver": "Other natural disturbances", "loss_kha": 29.4},
+        {"driver": "Wildfire", "loss_kha": 74.5},
+        {"driver": "Shifting cultivation", "loss_kha": 180}
+      ]
+    },
+    "layer": [
+      {
+        "mark": {"type": "arc", "outerRadius": 120, "innerRadius": 80},
+    "encoding": {
+          "theta": {"field": "loss_kha", "type": "quantitative"},
+      "color": {
+            "field": "driver",
+        "type": "nominal",
+            "title": "Driver of Loss",
+            "scale": {
+              "domain": [
+                "Hard commodities",
+                "Settlements & infrastructure",
+                "Logging",
+                "Wildfire",
+                "Permanent agriculture",
+                "Other natural disturbances",
+                "Shifting cultivation"
+              ],
+              "range": [
+                "#E57373", // Red for Hard commodities
+                "#BA68C8", // Purple for Settlements & infrastructure
+                "#81C784", // Green for Logging
+                "#A1887F", // Brown for Wildfire
+                "#FFB74D", // Orange for Permanent agriculture
+                "#90CAF9", // Light Blue for Other natural disturbances
+                "#FFEB3B"  // Yellow for Shifting cultivation
+              ]
+            }
+          },
+          "order": {"field": "loss_kha", "sort": "descending"},
+      "tooltip": [
+            {"field": "driver", "type": "nominal", "title": "Driver"},
+            {"field": "loss_kha", "type": "quantitative", "title": "Loss (kha)", "format": ",.1f"}
+          ]
+        }
+      },
+      {
+        "mark": {"type": "text", "radius": 140},
+        "encoding": {
+          "theta": {"field": "loss_kha", "type": "quantitative"},
+          "text": {"field": "loss_kha", "type": "quantitative", "format": ".1f"},
+          "order": {"field": "loss_kha", "sort": "descending"},
+          "color": {"value": "black"}
+        }
+      }
+    ],
+    "view": {"stroke": null},
+    "title": "Tree Cover Loss by Dominant Driver in Malaysia (2001-2024)"
+  };
+
+
+  // Bar Chart 1: Forest Loss by State (2020-2024)
+  const forestLossByStateSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Forest loss by state in Malaysia (2020-2024)",
+    "width": 700,
+    "height": 500,
+    "data": {
+      "values": [
+        {"state": "Sarawak", "year": 2020, "forest_loss": 132000},
+        {"state": "Sarawak", "year": 2021, "forest_loss": 145000},
+        {"state": "Sarawak", "year": 2022, "forest_loss": 138000},
+        {"state": "Sarawak", "year": 2023, "forest_loss": 125000},
+        {"state": "Sarawak", "year": 2024, "forest_loss": 118000},
+        {"state": "Sabah", "year": 2020, "forest_loss": 98000},
+        {"state": "Sabah", "year": 2021, "forest_loss": 105000},
+        {"state": "Sabah", "year": 2022, "forest_loss": 92000},
+        {"state": "Sabah", "year": 2023, "forest_loss": 88000},
+        {"state": "Sabah", "year": 2024, "forest_loss": 82000},
+        {"state": "Pahang", "year": 2020, "forest_loss": 45000},
+        {"state": "Pahang", "year": 2021, "forest_loss": 48000},
+        {"state": "Pahang", "year": 2022, "forest_loss": 42000},
+        {"state": "Pahang", "year": 2023, "forest_loss": 39000},
+        {"state": "Pahang", "year": 2024, "forest_loss": 36000},
+        {"state": "Kelantan", "year": 2020, "forest_loss": 38000},
+        {"state": "Kelantan", "year": 2021, "forest_loss": 42000},
+        {"state": "Kelantan", "year": 2022, "forest_loss": 39000},
+        {"state": "Kelantan", "year": 2023, "forest_loss": 35000},
+        {"state": "Kelantan", "year": 2024, "forest_loss": 32000},
+        {"state": "Terengganu", "year": 2020, "forest_loss": 28000},
+        {"state": "Terengganu", "year": 2021, "forest_loss": 31000},
+        {"state": "Terengganu", "year": 2022, "forest_loss": 29000},
+        {"state": "Terengganu", "year": 2023, "forest_loss": 26000},
+        {"state": "Terengganu", "year": 2024, "forest_loss": 24000}
+      ]
+    },
+    "transform": [
+      {
+        "aggregate": [{"op": "sum", "field": "forest_loss", "as": "total_forest_loss"}],
+        "groupby": ["state"]
+      },
+      {"sort": [{"field": "total_forest_loss", "order": "descending"}]}
+    ],
+    "mark": {
+      "type": "bar",
+      "cornerRadiusEnd": 4,
+      "cursor": "pointer"
+    },
+    "encoding": {
+      "x": {
+        "field": "state",
+        "type": "nominal",
+        "title": "State",
+        "axis": {"labelAngle": -45, "labelFontSize": 11}
+      },
+      "y": {
+        "field": "total_forest_loss",
+        "type": "quantitative",
+        "title": "Total Forest Loss (hectares, 2020-2024)",
+        "axis": {"grid": true}
+      },
+      "color": {
+        "field": "state",
+        "type": "nominal",
+        "scale": {"scheme": "category20b"},
+        "legend": null
+      },
+      "tooltip": [
+        {"field": "state", "type": "nominal", "title": "State"},
+        {"field": "total_forest_loss", "type": "quantitative", "title": "Total Forest Loss (ha)", "format": ",.0f"}
+      ]
+    },
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal"
+      }
+    }
+  };
+
+  // Bar Chart 2: Forest Loss by Year (2010-2024)
+  const forestLossByYearSpec = {
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Annual forest loss in Malaysia (2010-2024)",
+    "width": 700,
+    "height": 400,
+    "data": {
+      "values": [
+        {"year": 2010, "forest_loss": 185000},
+        {"year": 2011, "forest_loss": 198000},
+        {"year": 2012, "forest_loss": 215000},
+        {"year": 2013, "forest_loss": 245000},
+        {"year": 2014, "forest_loss": 275000},
+        {"year": 2015, "forest_loss": 295000},
+        {"year": 2016, "forest_loss": 285000},
+        {"year": 2017, "forest_loss": 265000},
+        {"year": 2018, "forest_loss": 245000},
+        {"year": 2019, "forest_loss": 225000},
+        {"year": 2020, "forest_loss": 198000},
+        {"year": 2021, "forest_loss": 215000},
+        {"year": 2022, "forest_loss": 205000},
+        {"year": 2023, "forest_loss": 192000},
+        {"year": 2024, "forest_loss": 178000}
+      ]
+    },
+    "mark": {
+      "type": "bar",
+      "fill": "#4CAF50",
+      "cornerRadiusEnd": 4,
+      "cursor": "pointer"
+    },
+    "encoding": {
+      "x": {
+        "field": "year",
+        "type": "ordinal",
+        "title": "Year",
+        "axis": {"labelAngle": -45}
+      },
+      "y": {
+        "field": "forest_loss",
+        "type": "quantitative",
+        "title": "Forest Loss (hectares)",
+        "axis": {"grid": true}
+      },
+      "tooltip": [
+        {"field": "year", "type": "ordinal", "title": "Year"},
+        {"field": "forest_loss", "type": "quantitative", "title": "Forest Loss (ha)", "format": ",.0f"}
+      ]
+    },
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {
+        "labelFontSize": 11,
+        "titleFontSize": 13,
+        "titleFontWeight": "normal"
+      }
+    }
+  };
+
+  // Embed the visualizations
+  vegaEmbed('#map', mapSpec, {actions: false});
+  vegaEmbed('#bubble-plot', bubbleSpec, {actions: false}).then(result => {
+    // Add the year selection dropdown
+    const view = result.view;
+    const container = document.getElementById('year-selection');
+    const select = container.querySelector('select');
+    if (select) {
+      select.addEventListener('change', function() {
+        view.signal('yearFilter', parseInt(this.value)).run();
+      });
+    }
+  });
+  vegaEmbed('#primary-forest-loss', primaryForestLossSpec, {actions: false});
+  vegaEmbed('#tree-cover-loss', treeCoverLossSpec, {actions: false});
+  vegaEmbed('#dominant-driver-tree-loss', dominantDriverTreeLossSpec, {actions: false});
+  vegaEmbed('#forest-loss-by-state', forestLossByStateSpec, {actions: false});
+  vegaEmbed('#forest-loss-by-year', forestLossByYearSpec, {actions: false});
+</script>
+
   </script>
+  <div class="meta-footer">
+    <p>This visualization is created by Sharmila Galidevara.</p>
+    <p>Data sources:</p>
+    <ul>
+      <li><a href="https://www.protectedplanet.net/en/country/MYS" target="_blank">Protected Planet: Malaysia Protected Areas</a></li>
+      <li><a href="https://www.globalforestwatch.org/dashboards/country/MYS/" target="_blank">Global Forest Watch: Malaysia Dashboard</a></li>
+      <li><a href="https://www.iucnredlist.org/resources/summary-statistics" target="_blank">IUCN Red List: Summary Statistics</a></li>
+    </ul>
+  </div>
 </body>
 </html>
