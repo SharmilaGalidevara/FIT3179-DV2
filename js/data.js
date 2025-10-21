@@ -127,22 +127,6 @@ const bubbleSpec = {
             {"field": "parks", "type": "quantitative", "title": "Number of Parks"}
           ]
         }
-      },
-      {
-        "mark": {
-          "type": "text",
-          "align": "left",
-          "dx": 8,
-          "dy": -8,
-          "fontWeight": "bold",
-          "fontSize": 11
-        },
-        "encoding": {
-          "x": {"field": "median_income", "type": "quantitative"},
-          "y": {"field": "gdp", "type": "quantitative"},
-          "text": {"field": "state", "type": "nominal"},
-          "opacity": {"value": 0.9}
-        }
       }
     ],
     "config": {
@@ -162,22 +146,98 @@ const bubbleSpec = {
     }
   };
 
-  // Map Specification (from Week 9)
+  // Map Specification with Annotations
   const mapSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 900,
-    "height": 600,
-    "projection": { "type": "mercator", "center": [109, 4], "scale": 2200 },
+    "width": 1000,
+    "height": 700,
+    "projection": { "type": "mercator", "center": [109, 4], "scale": 2500 },
     "layer": [
+      // Annotation for Taman Negara
+      {
+        "data": {
+          "values": [
+            {
+              "name": "Taman Negara",
+              "lon": 102.4,
+              "lat": 4.7,
+              "label": "Taman Negara\nMalaysia's Oldest National Park\nEst. 1938",
+              "dx": 5,
+              "dy": -10,
+              "color": "#1a5e1a",
+              "fontSize": 12,
+              "fontWeight": "bold"
+            }
+          ]
+        },
+        "projection": {"type": "mercator", "center": [109, 4], "scale": 2500},
+        "mark": {
+          "type": "rule",
+          "x2": {"expr": "datum.lon"},
+          "y2": {"expr": "datum.lat"},
+          "stroke": "#1a5e1a",
+          "strokeWidth": 1.5,
+          "strokeDash": [4, 2]
+        },
+        "encoding": {
+          "longitude": {"field": "lon", "type": "quantitative"},
+          "latitude": {"field": "lat", "type": "quantitative"}
+        }
+      },
+      {
+        "data": {
+          "values": [
+            {
+              "lon": 102.4,
+              "lat": 4.7,
+              "label": "Taman Negara\nMalaysia's Oldest National Park\nEst. 1938",
+              "dx": 5,
+              "dy": -10,
+              "color": "#1a5e1a",
+              "fontSize": 12,
+              "fontWeight": "bold"
+            }
+          ]
+        },
+        "projection": {"type": "mercator", "center": [109, 4], "scale": 2500},
+        "mark": {
+          "type": "text",
+          "align": "left",
+          "dx": 5,
+          "dy": -10,
+          "fontSize": 12,
+          "fontWeight": "bold",
+          "color": "#1a5e1a",
+          "lineHeight": 1.4
+        },
+        "encoding": {
+          "longitude": {"field": "lon", "type": "quantitative"},
+          "latitude": {"field": "lat", "type": "quantitative"},
+          "text": {"field": "label", "type": "nominal"}
+        }
+      },
       // ocean background (sphere)
       {
         "data": { "sphere": true },
         "mark": { "type": "geoshape", "fill": "#e6f3ff", "stroke": "#cfe8ff", "strokeWidth": 0.6 }
       },
-      // graticule
+      // MALAYSIA label in ocean
       {
-        "data": { "graticule": true },
-        "mark": { "type": "geoshape", "stroke": "#bdbdbd", "strokeWidth": 0.6, "fill": null }
+        "data": {
+          "values": [{"label": "MALAYSIA", "lon": 106, "lat": 2.5}]
+        },
+        "mark": {
+          "type": "text",
+          "fontSize": 24,
+          "fontWeight": "bold",
+          "fill": "#a0c8e0",
+          "opacity": 0.6
+        },
+        "encoding": {
+          "longitude": {"field": "lon", "type": "quantitative"},
+          "latitude": {"field": "lat", "type": "quantitative"},
+          "text": {"field": "label", "type": "nominal"}
+        }
       },
       // malaysia outline 
       {
@@ -225,20 +285,22 @@ const bubbleSpec = {
             }
           },
           "color": {
-            "field": "Area_k2_color",
+            "field": "Area_k2",
             "type": "quantitative",
             "title": "Area (km²)",
             "scale": {
-              "scheme": "greens",
-              "reverse": false
+              "type": "threshold",
+              "domain": [100, 1000],
+              "range": ["#a1d99b", "#31a354", "#006d2c"]
             },
             "legend": {
               "title": "Area (km²)",
               "orient": "right",
-              "gradientLength": 160,
-              "format": ",d",
+              "values": [0, 100, 1000],
+              "labelOverlap": true,
               "titleFontSize": 12,
-              "labelFontSize": 11
+              "labelFontSize": 11,
+              "format": ",d"
             }
           },
           "tooltip": [
@@ -257,7 +319,7 @@ const bubbleSpec = {
     }
   };
 
-  // New Primary Forest Loss Specification (Re-implemented from scratch)
+  // Primary Forest Loss Specification
   const primaryForestLossSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Primary Forest Loss in Malaysia (2002-2024)",
@@ -318,14 +380,14 @@ const bubbleSpec = {
         }
       },
       {
-        "mark": {"type": "line", "color": "#388E3C", "strokeDash": [2, 2], "point": false},
+        "mark": {"type": "line", "color": "lightpink", "strokeDash": [2, 2], "point": false},
         "encoding": {
           "x": {"field": "YearNum", "type": "quantitative"},
           "y": {
             "field": "percent_remaining",
             "type": "quantitative",
             "title": "Percent of 2001 Primary Forest Area Remaining",
-            "axis": {"format": ".0f", "orient": "right", "tickCount": 5, "titleColor": "#388E3C"}
+            "axis": {"format": ".0f", "orient": "right", "tickCount": 5, "titleColor": "lightpink"}
           },
           "tooltip": [
             {"field": "YearNum", "type": "quantitative", "title": "Year"},
@@ -349,7 +411,7 @@ const bubbleSpec = {
   // New Tree Cover Loss in Malaysia Specification (Re-implemented from scratch)
   const treeCoverLossSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "description": "Country-level tree cover loss over time for Malaysia",
+    "description": "Tree Cover Loss in Malaysia (2001-2024)",
     "width": 700,
     "height": 400,
     "data": {
@@ -385,11 +447,10 @@ const bubbleSpec = {
       {"calculate": "parseFloat(replace(datum.ColumnHeader, /[^0-9]/g, ''))", "as": "YearNum"},
       {"filter": "!isNaN(datum.YearNum)"}
     ],
-    "mark": "bar",
+    "mark": {"type": "bar", "color": "steelblue"},
     "encoding": {
       "x": {"field": "YearNum", "type": "quantitative", "title": "Year", "axis": {"labelAngle": 0, "format": "d"}},
       "y": {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Area of Tree Cover Loss (kha)", "axis": {"format": ",.0f", "tickCount": 5}},
-      "color": {"value": "#EC407A"},
       "tooltip": [
         {"field": "YearNum", "type": "quantitative", "title": "Year"},
         {"field": "Tree_Loss_Ha", "type": "quantitative", "title": "Tree Loss (kha)", "format": ",.0f"}
@@ -423,54 +484,41 @@ const bubbleSpec = {
         {"driver": "Shifting cultivation", "loss_kha": 180}
       ]
     },
-    "layer": [
-      {
-        "mark": {"type": "arc", "outerRadius": 120, "innerRadius": 80},
+    "mark": "bar",
     "encoding": {
-          "theta": {"field": "loss_kha", "type": "quantitative"},
+      "x": {"field": "loss_kha", "type": "quantitative", "title": "Loss (kha)"},
+      "y": {"field": "driver", "type": "nominal", "sort": "-x", "title": "Driver of Loss"},
       "color": {
-            "field": "driver",
+        "field": "driver",
         "type": "nominal",
-            "title": "Driver of Loss",
-            "scale": {
-              "domain": [
-                "Hard commodities",
-                "Settlements & infrastructure",
-                "Logging",
-                "Wildfire",
-                "Permanent agriculture",
-                "Other natural disturbances",
-                "Shifting cultivation"
-              ],
-              "range": [
-                "#E57373", // Red for Hard commodities
-                "#BA68C8", // Purple for Settlements & infrastructure
-                "#81C784", // Green for Logging
-                "#A1887F", // Brown for Wildfire
-                "#FFB74D", // Orange for Permanent agriculture
-                "#90CAF9", // Light Blue for Other natural disturbances
-                "#FFEB3B"  // Yellow for Shifting cultivation
-              ]
-            }
-          },
-          "order": {"field": "loss_kha", "sort": "descending"},
-      "tooltip": [
-   {"field": "driver", "type": "nominal", "title": "Driver"},
-            {"field": "loss_kha", "type": "quantitative", "title": "Loss (kha)", "format": ",.1f"}
+        "title": "Driver of Loss",
+        "legend": null,
+        "scale": {
+          "domain": [
+            "Hard commodities",
+            "Settlements & infrastructure",
+            "Logging",
+            "Wildfire",
+            "Permanent agriculture",
+            "Other natural disturbances",
+            "Shifting cultivation"
+          ],
+          "range": [
+            "grey",   // Hard commodities
+            "grey",   // Settlements & infrastructure
+            "grey",   // Logging
+            "grey",   // Wildfire
+            "purple", // Permanent agriculture
+            "grey",   // Other natural disturbances
+            "grey"    // Shifting cultivation
           ]
         }
       },
-      {
-        "mark": {"type": "text", "radius": 140},
-        "encoding": {
-          "theta": {"field": "loss_kha", "type": "quantitative"},
-          "text": {"field": "loss_kha", "type": "quantitative", "format": ".1f"},
-          "order": {"field": "loss_kha", "sort": "descending"},
-          "color": {"value": "black"}
-        }
-      }
-    ],
-    "view": {"stroke": null},
+      "tooltip": [
+        {"field": "driver", "type": "nominal", "title": "Driver"},
+        {"field": "loss_kha", "type": "quantitative", "title": "Loss (kha)", "format": ",.1f"}
+      ]
+    },
     "title": "Tree Cover Loss by Dominant Driver in Malaysia (2001-2024)"
   };
 
@@ -517,11 +565,7 @@ const bubbleSpec = {
       },
       {"sort": [{"field": "total_forest_loss", "order": "descending"}]}
     ],
-    "mark": {
-      "type": "bar",
-      "cornerRadiusEnd": 4,
-      "cursor": "pointer"
-    },
+    "mark": {"type": "bar", "color": "pink"},
     "encoding": {
       "x": {
         "field": "state",
@@ -534,12 +578,6 @@ const bubbleSpec = {
         "type": "quantitative",
         "title": "Total Forest Loss (hectares, 2020-2024)",
         "axis": {"grid": true}
-      },
-      "color": {
-        "field": "state",
-        "type": "nominal",
-        "scale": {"scheme": "category20b"},
-        "legend": null
       },
       "tooltip": [
         {"field": "state", "type": "nominal", "title": "State"},
@@ -583,7 +621,7 @@ const bubbleSpec = {
     },
     "mark": {
       "type": "bar",
-      "fill": "#4CAF50",
+      "fill": "orange",
       "cornerRadiusEnd": 4,
       "cursor": "pointer"
     },

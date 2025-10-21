@@ -1,19 +1,26 @@
-body { 
-      font-family: Arial, sans-serif; 
-      /* margin: 12px; */ /* Removed to allow full width for continuous page */
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
+body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
       line-height: 1.6;
       color: #333;
     }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      background-color: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      min-height: 100vh;
+    }
     .viz-container {
-      margin-bottom: 40px;
-      margin-top: 40px; /* Added top margin for spacing */
-      /* background: #fff; */ /* Removed for continuous page */
-      /* border-radius: 8px; */ /* Removed for continuous page */
-      /* box-shadow: 0 2px 12px rgba(0,0,0,0.1); */ /* Removed for continuous page */
-      /* padding: 20px; */ /* Removed for continuous page */
+      margin: 50px 0;
+      padding: 25px;
+      background: white;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
     h1 { 
       font-family: Georgia, 'Times New Roman', Times, serif;
@@ -37,35 +44,35 @@ body {
     h2 {
       margin-top: 30px;
       margin-bottom: 20px;
-      font-size: 1.2em; /* Smaller font size */
+      font-size: 1.2em;
       color: #34495e;
-      text-align: left; /* Left align headings */
-      padding-bottom: 0px; /* Remove padding */
-      border-bottom: none; /* Remove border */
+      text-align: left;
+      padding-bottom: 0px;
+      border-bottom: none;
     }
-    .meta-footer { /* Renamed from .meta-card to .meta-footer */
+    .meta-footer {
       font-size: 0.95rem;
       color: #555;
-      margin: 40px auto 20px auto; /* Centered and added top margin */
+      margin: 40px auto 20px auto;
       text-align: center;
       line-height: 1.5;
-      max-width: 800px; /* Constrain width for readability */
+      max-width: 800px;
       padding-top: 20px;
-      border-top: 1px solid #eee; /* Separator line */
-      text-align: left; /* Align text to the left */
+      border-top: 1px solid #eee;
+      text-align: left;
     }
-    .meta-footer h2 { /* Targeting h2 within the new footer class */
+    .meta-footer h2 {
       font-size: 1.1rem;
       margin: 0 0 8px 0;
       text-align: center;
       padding: 0;
       border: none;
     }
-    .meta-footer .row { /* Targeting rows within the new footer class */
+    .meta-footer .row {
       margin: 4px 0;
       line-height: 1.4;
     }
-    .meta-footer strong { /* Targeting strong within the new footer class */
+    .meta-footer strong {
       color: #2c3e50;
     }
     .description {
@@ -78,10 +85,46 @@ body {
     .description p {
       margin: 5px 0;
     }
-    #bubble-plot, #map {
+    #bubble-plot, #map,
+    #primary-forest-loss, #tree-cover-loss,
+    #dominant-driver-tree-loss,
+    #forest-loss-by-state, #forest-loss-by-year {
+      width: 100%;
+      min-height: 500px;
+      margin: 10px 0;
       display: flex;
       justify-content: center;
-      margin: 20px 0;
+      align-items: center;
+    }
+    
+    .two-column-layout, .two-column-layout-reverse {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      width: 100%;
+    }
+    
+    .two-column-layout > div:not(.description),
+    .two-column-layout-reverse > div:not(.description) {
+      width: 60%;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .two-column-layout .description,
+    .two-column-layout-reverse .description {
+      width: 35%;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      border-left: 4px solid #3498db;
+    }
+    
+    .two-column-layout-reverse {
+      flex-direction: row-reverse;
     }
     .vega-bind {
       display: flex;
@@ -103,24 +146,21 @@ body {
     .plot-and-dropdown-container {
       display: flex;
       flex-direction: column;
-      align-items: right; /* Center align the plot and dropdown */
-      gap: 15px; /* Space between plot and dropdown */
-      /* flex: 2; */ /* Removed to use explicit width */
-      width: 100%; /* Take full width of its parent (65%) */
+      align-items: right;
+      gap: 15px;
+      width: 100%;
     }
     .two-column-layout {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      gap: 40px; /* Space between columns */
+      gap: 40px;
     }
     .two-column-layout > div {
-      /* flex: 2; */ /* Removed to use explicit width */
-      width: 65%; /* Allocate 65% for visualization */
+      width: 65%;
     }
     .two-column-layout .description {
-      /* flex: 1; */ /* Removed to use explicit width */
-      width: 30%; /* Allocate 30% for description */
+      width: 30%;
       margin-top: 0; 
     }
     .two-column-layout-reverse {
@@ -131,11 +171,9 @@ body {
       gap: 40px;
     }
     .two-column-layout-reverse > div {
-      /* flex: 2; */ /* Removed to use explicit width */
-      width: 65%; /* Allocate 65% for visualization */
+      width: 65%;
     }
     .two-column-layout-reverse .description {
-      /* flex: 1; */ /* Removed to use explicit width */
-      width: 30%; /* Allocate 30% for description */
+      width: 30%;
       margin-top: 0;
     }

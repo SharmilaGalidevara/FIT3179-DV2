@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "data/malaysia_state_summary.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "lookup": "state",
+      "from": {
+        "data": {
+          "url": "data/malaysia_states.geojson",
+          "format": {"type": "geojson"}
+        },
+        "key": "properties.NAME_1",
+        "fields": ["geometry"]
+      }
+    }
+  ],
+  "projection": {"type": "mercator", "scale": 800, "center": [112.5, 2.5]},
+  "mark": {"type": "circle", "opacity": 0.7, "stroke": "white"},
+  "encoding": {
+    "longitude": {"field": "geometry.coordinates[0][0][0]", "type": "quantitative"},
+    "latitude": {"field": "geometry.coordinates[0][0][1]", "type": "quantitative"},
+    "size": {"field": "species_richness_index", "type": "quantitative", "title": "Species richness"},
+    "color": {"field": "forest_cover_percent_2010","type": "quantitative","scale":{"scheme":"greens"},"title":"Forest cover % (2010)"},
+    "tooltip": [
+      {"field": "state","type":"nominal"},
+      {"field": "species_richness_index","type":"quantitative"},
+      {"field": "forest_cover_percent_2010","type":"quantitative"}
+    ]
+  },
+  "selection": {"zoom":{"type":"interval","bind":"scales"}}
+}

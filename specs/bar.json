@@ -1,0 +1,16 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "data": {"url":"data/malaysia_state_summary.csv"},
+  "mark": {"type":"bar"},
+  "encoding": {
+    "x":{"field":"state","type":"ordinal","sort":"-y"},
+    "y":{"field":"species_richness_index","type":"quantitative"},
+    "color":{"field":"species_richness_index","type":"quantitative","scale":{"scheme":"blues"}}
+  },
+  "tooltip":[
+    {"field":"state","type":"nominal"},
+    {"field":"species_richness_index","type":"quantitative"}
+  ]
+}

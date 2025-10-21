@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"features": [
+  {"type": "Feature","properties":{"NAME_1":"Johor"},"geometry":{"type":"Polygon","coordinates":[[[103.3,1.4],[104.6,1.4],[104.6,2.6],[103.3,2.6],[103.3,1.4]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Kedah"},"geometry":{"type":"Polygon","coordinates":[[[100.0,5.5],[100.7,5.5],[100.7,6.7],[100.0,6.7],[100.0,5.5]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Kelantan"},"geometry":{"type":"Polygon","coordinates":[[[102.0,4.8],[103.0,4.8],[103.0,6.2],[102.0,6.2],[102.0,4.8]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Malacca"},"geometry":{"type":"Polygon","coordinates":[[[102.0,2.0],[102.5,2.0],[102.5,2.5],[102.0,2.5],[102.0,2.0]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Negeri Sembilan"},"geometry":{"type":"Polygon","coordinates":[[[101.5,2.3],[102.3,2.3],[102.3,3.0],[101.5,3.0],[101.5,2.3]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Pahang"},"geometry":{"type":"Polygon","coordinates":[[[102.0,2.8],[104.0,2.8],[104.0,4.2],[102.0,4.2],[102.0,2.8]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Perak"},"geometry":{"type":"Polygon","coordinates":[[[100.5,4.0],[101.5,4.0],[101.5,5.5],[100.5,5.5],[100.5,4.0]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Penang"},"geometry":{"type":"Polygon","coordinates":[[[100.2,5.3],[100.5,5.3],[100.5,5.5],[100.2,5.5],[100.2,5.3]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Perlis"},"geometry":{"type":"Polygon","coordinates":[[[100.1,5.3],[100.3,5.3],[100.3,5.5],[100.1,5.5],[100.1,5.3]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Sabah"},"geometry":{"type":"Polygon","coordinates":[[[116.0,4.5],[119.0,4.5],[119.0,7.5],[116.0,7.5],[116.0,4.5]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Sarawak"},"geometry":{"type":"Polygon","coordinates":[[[109.5,0.5],[115.0,0.5],[115.0,4.5],[109.5,4.5],[109.5,0.5]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Selangor"},"geometry":{"type":"Polygon","coordinates":[[[101.2,2.7],[102.0,2.7],[102.0,3.5],[101.2,3.5],[101.2,2.7]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Terengganu"},"geometry":{"type":"Polygon","coordinates":[[[102.0,4.5],[103.0,4.5],[103.0,6.0],[102.0,6.0],[102.0,4.5]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Kuala Lumpur"},"geometry":{"type":"Polygon","coordinates":[[[101.6,3.1],[101.8,3.1],[101.8,3.3],[101.6,3.3],[101.6,3.1]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Labuan"},"geometry":{"type":"Polygon","coordinates":[[[115.2,5.2],[115.4,5.2],[115.4,5.4],[115.2,5.4],[115.2,5.2]]]}},
+  {"type": "Feature","properties":{"NAME_1":"Putrajaya"},"geometry":{"type":"Polygon","coordinates":[[[101.6,2.9],[101.7,2.9],[101.7,3.0],[101.6,3.0],[101.6,2.9]]]}}
+]
+}

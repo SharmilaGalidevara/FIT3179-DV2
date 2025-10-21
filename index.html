@@ -9,47 +9,33 @@
   <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-  <h1>Malaysia's National Parks and Biodiversity</h1>
+  <div class="container">
+    <h1>Malaysia's National Parks and Biodiversity</h1>
 
   <div class="viz-container">
     <h2>Malaysia Protected Areas</h2>
-    <div class="two-column-layout">
-      <div class="description">
-        <p>Map shows Malaysia's protected areas by state.</p>
-        <p>Circle size encodes protected area size in square kilometers. Hover over circles to see details of the species and count.</p>
-      </div>
-      <div id="map"></div>
-    </div>
+    <div id="map" class="full-width-map"></div>
   </div>
 
   <div class="viz-container">
     <h2>State-level Economic Indicators</h2>
-    <div class="two-column-layout-reverse">
-      <div class="description">
-        <p>This bubble plot shows the relationship between median income and GDP across Malaysian states, with bubble size representing population.</p>
-        <p>Use the dropdown to filter by year. Hover over bubbles to see detailed information about each state.</p>
-        <div class="vega-bind" id="year-selection"></div>
-      </div>
-      <div class="plot-and-dropdown-container">
-        <div id="bubble-plot"></div>
-      </div>
-    </div>
+    <div id="bubble-plot" class="full-width-plot"></div>
+    <div class="vega-bind" id="year-selection"></div>
   </div>
 
   <div class="viz-container">
-    <h2>PRIMARY FOREST LOSS IN MALAYSIA</h2>
+    <h2>Primary Forest Loss in Malaysia</h2>
     <div class="two-column-layout">
       <div class="description">
         <p>Between 2002 and 2024, Malaysia experienced a loss of 2.99 Mha of humid primary forest, contributing to 33% of its total tree cover loss for that period. Overall, the humid primary forest area in Malaysia saw a 19% reduction.</p>
         <p>This visualization presents the annual tree cover loss within the 2001 primary forest extent (represented by green bars) and tracks the remaining percentage of that 2001 forest area (shown by the dotted line).</p>
-        <p>Note: Data collection methods evolved after 2015; exercise caution when comparing data from before and after this year.</p>
       </div>
       <div id="primary-forest-loss"></div>
     </div>
   </div>
 
   <div class="viz-container">
-    <h2>TREE COVER LOSS IN MALAYSIA</h2>
+    <h2>Tree Cover Loss in Malaysia</h2>
     <div class="two-column-layout-reverse">
     <div class="description">
         <p>Malaysia's total tree cover loss from 2001 to 2024 amounted to 9.51 Mha, equating to 32% of its 2000 tree cover extent and releasing 5.51 Gt of CO₂e emissions. This calculation does not incorporate any tree cover gains during the specified period.</p>
@@ -60,7 +46,7 @@
   </div>
 
   <div class="viz-container">
-    <h2>TREE COVER LOSS BY DOMINANT DRIVER IN MALAYSIA</h2>
+    <h2>Tree Cover Loss by dominant driver in Malaysia</h2>
     <div class="two-column-layout">
       <div class="description">
         <p>From 2001 to 2024, 77% of Malaysia's tree cover loss occurred in regions primarily impacted by deforestation. This donut chart visually breaks down the main causes, distinguishing between dominant drivers of deforestation and temporary disturbances.</p>
@@ -70,7 +56,7 @@
   </div>
 
   <div class="viz-container">
-    <h2>FOREST LOSS BY STATE (2020-2024)</h2>
+    <h2>Forest Loss by State (2020-2024)</h2>
     <div class="two-column-layout">
       <div class="description">
         <p>This bar chart shows the forest loss in hectares by state from 2020 to 2024. The data reveals significant variations in forest loss across different states in Malaysia.</p>
@@ -80,7 +66,7 @@
   </div>
 
   <div class="viz-container">
-    <h2>FOREST LOSS BY YEAR (2010-2024)</h2>
+    <h2>Forest Loss by Year (2010-2024)</h2>
     <div class="two-column-layout-reverse">
       <div class="description">
         <p>This bar chart displays the annual forest loss in Malaysia from 2010 to 2024. The trend shows fluctuations in forest loss over the years, with some years experiencing higher rates of deforestation than others.</p>
@@ -94,7 +80,7 @@
   <script src="./js/data.js"></script>
   <script src="./js/main.js"></script>
   <div class="meta-footer">
-    <p>This visualization is created by Sharmila Galidevara, published on 16/10/2025.</p>
+    <p>This visualization is created by Sharmila Galidevara, published on 21/10/2025.</p>
     <p>Data sources:</p>
     <ul>
       <li><a href="https://www.protectedplanet.net/en/country/MYS" target="_blank">Protected Planet: Malaysia Protected Areas</a></li>

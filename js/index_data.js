@@ -128,22 +128,6 @@
             {"field": "parks", "type": "quantitative", "title": "Number of Parks"}
           ]
         }
-      },
-      {
-        "mark": {
-          "type": "text",
-          "align": "left",
-          "dx": 8,
-          "dy": -8,
-          "fontWeight": "bold",
-          "fontSize": 11
-        },
-        "encoding": {
-          "x": {"field": "median_income", "type": "quantitative"},
-          "y": {"field": "gdp", "type": "quantitative"},
-          "text": {"field": "state", "type": "nominal"},
-          "opacity": {"value": 0.9}
-        }
       }
     ],
     "config": {
@@ -258,7 +242,7 @@
     }
   };
 
-  // New Primary Forest Loss Specification (Re-implemented from scratch)
+  // Primary Forest Loss Specification
   const primaryForestLossSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Primary Forest Loss in Malaysia (2002-2024)",
@@ -347,7 +331,7 @@
     }
   };
 
-  // New Tree Cover Loss in Malaysia Specification (Re-implemented from scratch)
+  // Tree Cover Loss in Malaysia Specification
   const treeCoverLossSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Country-level tree cover loss over time for Malaysia",
@@ -407,7 +391,7 @@
     }
   };
 
-  // New Dominant Driver Tree Loss Specification (Placeholder for now)
+  // Dominant Driver Tree Loss Specification
   const dominantDriverTreeLossSpec = {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Tree Cover Loss by Dominant Driver in Malaysia",
@@ -444,13 +428,13 @@
                 "Shifting cultivation"
               ],
               "range": [
-                "#E57373", // Red for Hard commodities
-                "#BA68C8", // Purple for Settlements & infrastructure
-                "#81C784", // Green for Logging
-                "#A1887F", // Brown for Wildfire
-                "#FFB74D", // Orange for Permanent agriculture
-                "#90CAF9", // Light Blue for Other natural disturbances
-                "#FFEB3B"  // Yellow for Shifting cultivation
+                "#E57373", 
+                "#BA68C8", 
+                "#81C784",
+                "#A1887F", 
+                "#FFB74D",
+                "#90CAF9", 
+                "#FFEB3B" 
               ]
             }
           },
